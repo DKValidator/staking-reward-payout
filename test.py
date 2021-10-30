@@ -1,14 +1,13 @@
 import json
-import subprocess
 
 # Using the result of a hmyGetDelegatorsByValidator rpc request, work out value of missed block rewards
 # and create a json file to be used with hmy CLI for sending transactions: https://github.com/harmony-one/go-sdk
 
-passphrase_file = './passphrase.txt' # File containing the wallet passphrase
-working_directory = '~/harmony/'
+passphrase_file = 'passphrase.txt' # File containing the wallet passphrase
 validator_address = 'one1w7nvheulzwprf9d9a3r8sqtv5q47qlqx7kured' # address to send rewards from
 
-file_name = "data.json"
+#file_name = "snapshot epoch 740.json"
+file_name = "snapshot epoch 739.json"
 with open(file_name) as f:
     data = json.load(f)
   
@@ -16,9 +15,10 @@ count = 0
 total_stake = 0
 total_reward = 0
 hrs_not_signing = 18.2
-blocks_missed = 133376
+#blocks_missed = 133376 # epoch 740 - based on blocks requested in epoch 741
+blocks_missed = 50416 # epoch 139
 transactions = list()
-apr = 0.1
+apr = 0.1051 # apr of epoch 741
 seconds_per_year = 365 * 24 * 60 * 60
 blocks_per_second = 0.5
 rewards_multiplier = (apr / seconds_per_year) * blocks_missed * blocks_per_second
@@ -45,7 +45,8 @@ transactions.sort(key=lambda transaction: transaction.get('amount'))
 #for transaction in transactions:
 #    print(transaction)
 
-with open("./rewards-epoch-test.json", "w") as file:
+#with open("./rewards-epoch-740.json", "w") as file:
+with open("./rewards-epoch-739.json", "w") as file:
     json.dump([ob for ob in transactions], file)
 
 
