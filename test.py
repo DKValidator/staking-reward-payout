@@ -24,9 +24,8 @@ blocks_per_second = 0.5
 rewards_multiplier = (apr / seconds_per_year) * blocks_missed * blocks_per_second
 
 for delegator in data['result']:
-    #if delegator['delegator_address'] == 'one1w7nvheulzwprf9d9a3r8sqtv5q47qlqx7kured' :
     stake = delegator['amount'] / 1000000000000000000
-    if stake > 99 and delegator['delegator_address'] != 'one1w7nvheulzwprf9d9a3r8sqtv5q47qlqx7kured'  :
+    if stake > 99 and delegator['delegator_address'] != validator_address  :
         total_stake += stake
         reward = stake * rewards_multiplier
         total_reward += reward
